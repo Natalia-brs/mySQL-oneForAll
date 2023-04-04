@@ -1,17 +1,16 @@
 DROP DATABASE IF EXISTS SpotifyClone;
-CREATE DATABASE IF NOT EXISTS SpotifyClone
+CREATE DATABASE IF NOT EXISTS SpotifyClone;
 
-CREATE TABLE planos(
+CREATE TABLE SpotifyClone.planos(
 id INT PRIMARY KEY AUTO_INCREMENT,
 tipo_plano VARCHAR(35) NOT NULL,
 valor DOUBLE NOT NULL 
 )ENGINE=InnoDB;
 
-INSERT INTO planos(tipo_plano, valor) VALUES
+INSERT INTO SpotifyClone.planos(tipo_plano, valor) VALUES
 ('gratuito', 0.00), ('familiar', 7.99), ('universitário', 5.99), ('pessoal', 6.99);
 
-
-CREATE TABLE usuario(
+CREATE TABLE SpotifyClone.usuario(
 id_usuario INT PRIMARY KEY AUTO_INCREMENT,
 nome_usuario VARCHAR(35) NOT NULL,
 idade INT NOT NULL,
@@ -20,7 +19,7 @@ plano_id INT NOT NULL,
 FOREIGN KEY(plano_id) REFERENCES planos(id)
 )ENGINE=InnoDB;
 
-INSERT INTO usuario(nome_usuario, idade, data_assinatura, plano_id) VALUES
+INSERT INTO SpotifyClone.usuario(nome_usuario, idade, data_assinatura, plano_id) VALUES
 ("Barbara Liskov", 82, "2019-10-20", 1),
 ("Robert Cecil Martin", 58, "2017-01-06", 1),
 ("Ada Lovelace", 37, "2017-12-30", 2),
@@ -32,12 +31,12 @@ INSERT INTO usuario(nome_usuario, idade, data_assinatura, plano_id) VALUES
 ("Judith Butler", 45, "2020-05-13", 4),
 ("Jorge Amado", 58, "2017-02-17", 4);
 
-CREATE TABLE artista(
+CREATE TABLE SpotifyClone.artista(
 id_artista INT PRIMARY KEY AUTO_INCREMENT,
 nome VARCHAR(50) NOT NULL
 )ENGINE=InnoDB;
 
-INSERT INTO artista(nome) VALUES 
+INSERT INTO SpotifyClone.artista(nome) VALUES 
 ("Beyoncé"),
 ("Queen"),
 ("Elis Regina"),
@@ -45,7 +44,7 @@ INSERT INTO artista(nome) VALUES
 ("Blind Guardian"),
 ("Nina Simone");
 
-CREATE TABLE album(
+CREATE TABLE SpotifyClone.album(
 id_album INT PRIMARY KEY AUTO_INCREMENT,
 titulo VARCHAR(35) NOT NULL,
 ano_lançamento YEAR NOT NULL,
@@ -53,7 +52,7 @@ id_artista INT NOT NULL,
 FOREIGN KEY(id_artista) REFERENCES artista(id_artista)
 )ENGINE=InnoDB;
 
-INSERT INTO album(titulo, ano_lançamento, id_artista) VALUES 
+INSERT INTO SpotifyClone.album(titulo, ano_lançamento, id_artista) VALUES 
 ('Renaissance', 2022, 1),
 ('Jazz', 1978, 2),
 ('Hot Space', 1982, 2),
@@ -63,7 +62,7 @@ INSERT INTO album(titulo, ano_lançamento, id_artista) VALUES
 ('Somewhere Far Beyond', 2007, 5),
 ('I Put A Spell On You', 2012, 6);
 
-CREATE TABLE musica(
+CREATE TABLE SpotifyClone.musica(
 musica_id INT PRIMARY KEY AUTO_INCREMENT,
 titulo VARCHAR(50) NOT NULL,
 album_id INT NOT NULL,
@@ -73,7 +72,7 @@ FOREIGN KEY(album_id) REFERENCES album(id_album),
 FOREIGN KEY(artista_id) REFERENCES artista(id_artista)
 )ENGINE=InnoDB;
 
-INSERT INTO musica (titulo, duração_seg, album_id, artista_id) VALUES 
+INSERT INTO SpotifyClone.musica (titulo, duração_seg, album_id, artista_id) VALUES 
 ('BREAK MY SOUL', 279, 1, 1),
 ("VIRGO'S GROOVE", 369, 1, 1),
 ('ALIEN SUPERSTAR', 116, 1, 1),
@@ -85,7 +84,7 @@ INSERT INTO musica (titulo, duração_seg, album_id, artista_id) VALUES
 ("The Bard's Song", 244, 7, 5),
 ("Feeling Good", 100, 8, 6);
 
-CREATE TABLE seguidores(
+CREATE TABLE SpotifyClone.seguidores(
 artista_id INT NOT NULL,
 usuario_id INT NOT NULL,
 CONSTRAINT PRIMARY KEY(artista_id, usuario_id),
@@ -93,7 +92,7 @@ FOREIGN KEY (usuario_id) REFERENCES usuario(id_usuario),
 FOREIGN KEY (artista_id) REFERENCES artista(id_artista)
 )ENGINE=InnoDB;
 
-INSERT INTO seguidores (artista_id, usuario_id) VALUES 
+INSERT INTO SpotifyClone.seguidores (artista_id, usuario_id) VALUES 
 (1, 1),
 (2, 1),
 (3, 1),
@@ -109,7 +108,7 @@ INSERT INTO seguidores (artista_id, usuario_id) VALUES
 (3, 9),
 (2, 10);
 
-CREATE TABLE historico(
+CREATE TABLE SpotifyClone.historico(
 usuario_id INT NOT NULL,
 musica_id INT NOT NULL,
 data_reproducao DATETIME,
@@ -118,7 +117,7 @@ FOREIGN KEY (usuario_id) REFERENCES usuario(id_usuario),
 FOREIGN KEY (musica_id) REFERENCES musica(musica_id)
 )ENGINE=InnoDB;
 
-INSERT INTO historico(usuario_id, musica_id, data_reproducao) VALUES
+INSERT INTO SpotifyClone.historico(usuario_id, musica_id, data_reproducao) VALUES
 (1, 8, "2022-02-28 10:45:55"),
 (1, 2, "2020-05-02 05:30:35"),
 (1, 10, "2020-03-06 11:22:33"),
@@ -135,4 +134,5 @@ INSERT INTO historico(usuario_id, musica_id, data_reproducao) VALUES
 (8, 4, "2012-03-17 14:56:41"),
 (9, 9, "2022-02-24 21:14:22"),
 (10, 3, "2015-12-13 08:30:22");
+
 
